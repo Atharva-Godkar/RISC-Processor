@@ -34,9 +34,18 @@ The aim of this project is to design a 32 bit single cycle RISC processor. The p
 ## ISA (instruction set architechture)
 ![ISA-image.png](https://i.postimg.cc/6pjpdVGv/ISA-image.png)
 
-## output on Vivado
-![Timing-Diagram-output.png](https://i.postimg.cc/FRNfZRg5/Timing-Diagram-output.png)
-![TCL-console-output.png](https://i.postimg.cc/PJ2BByHb/TCL-console-output.png)
+## xilinx vivado output - 
+### 1st is schematic
+### 2ns is waveform window
+### 3rd is TCL window
+![xilinx vivado output](https://postimage.me/images/2025/06/13/Screenshot-3868.png)
 
-## output on cadence
-![Netlist-Layout.png](https://i.postimg.cc/hGTNScgt/Netlist-Layout.png)
+## cadence output
+### 1st is schematic in vivado
+### 2nd is netlist on genus
+### 3rd is layout on innovus
+![cadence output](https://postimage.me/images/2025/06/13/Screenshot-3871.png)
+
+## To create IO pad ring we exported layout from innovus to virtuoso
+![IO pad ring](https://postimage.me/images/2025/06/13/Screenshot-3872.png)
+
