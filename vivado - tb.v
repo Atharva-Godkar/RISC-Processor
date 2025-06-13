@@ -3,10 +3,7 @@
 module risc_processor_tb( );
 reg clk1, start;
       
-wire read_i_s,
-     read_r_s,
-     write_ra_s,
-     write_rb_s,     
+wire read_i_s,    
      ALUon_s,
      read_d_s,
      mux_signal_s,
@@ -16,16 +13,15 @@ wire [31:0] I_s;
 wire [2:0] state_s;
 wire [31:0] A_s, B_s, L_s, Z_s, F_s, acc_s; 
 wire [15:0] count_s, S_s;     
-integer k=0,m=0;
-
+wire [2:0] operation_s;
+wire [2:0] TEMP_s;  // TEMP of PC
+wire [2:0] TEMP_ss; // TEMP of RAM
 
 
 risc_processor DP(start,clk1);
 
 initial begin 
-        #0 clk1 = 0; 
-        
-        
+        #10
            DP.RAM.ram_mem[0] = 7;               // these 6 values are stored inside the RAM
            DP.RAM.ram_mem[1] = 2;               // the u.p. has to fetch these values one by one from RAM
            DP.RAM.ram_mem[2] = 9;               // the u.p. has to then compare these values to find largest value.
@@ -33,8 +29,8 @@ initial begin
            DP.RAM.ram_mem[4] = 45; 
            DP.RAM.ram_mem[5] = 23; 
                 
-           for(k=0; k<8; k=k+1) 
-           begin DP.RB.regbank[k] = 0; end      // all the GPR are intialized to zero
+           /*for(k=0; k<8; k=k+1) 
+           begin DP.RB.regbank[k] = 0; end*/      // all the GPR are intialized to zero
 
            DP.ROM.rom_mem[0] = 32'h30020000;    // MOVU - - R2 16'h00
            DP.ROM.rom_mem[1] = 32'h32020006;    // MOVL - - R2 16'h06
@@ -56,6 +52,7 @@ initial begin
         end
         
 initial begin
+        #0 clk1 = 0;
         repeat(500)
         begin
         #5 clk1 = 1; #5 clk1 = 0;
@@ -64,9 +61,7 @@ initial begin
 
 
 assign read_i_s = DP.read_i;
-assign read_r_s = DP.read_r;
-assign write_ra_s = DP.write_ra;
-assign write_rb_s = DP.write_rb;
+assign operation_s = DP.operation;
 assign ALUon_s = DP.ALUon;
 assign read_d_s = DP.read_d;
 assign mux_signal_s = DP.mux_signal;
@@ -83,15 +78,13 @@ assign Z_s = DP.Z;
 assign F_s = DP.F; 
 assign count_s = DP.count;
 assign acc_s = DP.acc;
-
-
+assign TEMP_s = DP.PC.TEMP;
+assign TEMP_ss = DP.RAM.TEMP;
 
         
 initial begin
-        // #0 DP.CS.state = 3'b000;  
-        // already state is initialzed to SX in CS module
-        #20 start = 1;
-        #100 start = 0; 
+        #0 start = 1;
+        #8 start = 0; 
         $monitor ($time, "R0=%d, R1=%d, R2=%d, R3=%d, R4=%d, R5=%d", 
         DP.RB.regbank[0], DP.RB.regbank[1], DP.RB.regbank[2], DP.RB.regbank[3], DP.RB.regbank[4], DP.RB.regbank[5]);
         #10000 $finish;
