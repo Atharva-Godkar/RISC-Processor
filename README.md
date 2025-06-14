@@ -49,3 +49,8 @@ The aim of this project is to design a 32 bit single cycle RISC processor. The p
 ## To create IO pad ring we exported layout from innovus to virtuoso
 ![IO pad ring](https://postimage.me/images/2025/06/13/Screenshot-3872.png)
 
+## Team Members
+- [@vansh](https://github.com/VanshD40)
+- [@ansih](https://github.com/KNIGHTAPG)
+- [@sukanya](https://github.com/sukanyap1)
+- [@godkar](https://github.com/Atharva-Godkar)
